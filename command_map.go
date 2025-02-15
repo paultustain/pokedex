@@ -7,7 +7,7 @@ import (
 	"github.com/paultustain/pokedex/internal/pokeapi"
 )
 
-func commandMap(cfg *Config, area_name *string) error {
+func commandMap(cfg *Config, name *string) error {
 	if cfg.NextLocationURL == "" {
 		fmt.Println("you’re on the last page")
 		return nil

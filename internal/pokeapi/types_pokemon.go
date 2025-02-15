@@ -1,20 +1,10 @@
 package pokeapi
 
 type ShallowPokemon struct {
-	Location   Location    `json:"location"`
-	Encounters []Encounter `json:"pokemon_encounters"`
+	Name           string  `json:"name"`
+	BaseExperience float64 `json:"base_experience"`
 }
 
-type Location struct {
-	Name string
-	URL  string
-}
-
-type Encounter struct {
-	Pokemon Pokemon `json:"pokemon"`
-}
-
-type Pokemon struct {
-	Name string `json:"name"`
-	URL  string `json:"url"`
-}
+// type Ability struct {
+// 	BaseExperience int `json:"base_experience"`
+// }

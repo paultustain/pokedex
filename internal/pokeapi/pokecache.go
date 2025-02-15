@@ -1,7 +1,6 @@
 package pokeapi
 
 import (
-	"fmt"
 	"sync"
 	"time"
 )
@@ -56,7 +55,6 @@ func (c *Cache) Add(key string, val []byte) {
 	}
 
 	c.entries[key] = new_entry
-	fmt.Println(c.entries)
 
 }
 

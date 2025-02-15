@@ -2,12 +2,13 @@ package pokeapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 )
 
-func ListPokemon(area string) (ShallowPokemon, error) {
-	url := baseURL + "/location-area/" + area + "/"
+func ListPokemon(name string) (ShallowPokemon, error) {
+	url := baseURL + "/pokemon/" + name
 
 	req, err := http.Get(url)
 
@@ -19,15 +20,15 @@ func ListPokemon(area string) (ShallowPokemon, error) {
 
 	res, err := io.ReadAll(req.Body)
 	if err != nil {
-		return ShallowPokemon{}, nil
+		return ShallowPokemon{}, err
 	}
 
 	pkmn := ShallowPokemon{}
-
 	err = json.Unmarshal(res, &pkmn)
 	if err != nil {
 		return ShallowPokemon{}, nil
 	}
 
+	fmt.Println(pkmn)
 	return pkmn, nil
 }

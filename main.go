@@ -19,6 +19,7 @@ type cliCommand struct {
 type Config struct {
 	Client              pokeapi.Client
 	Cache               pokeapi.Cache
+	Pokedex             map[string]pokeapi.ShallowPokemon
 	NextLocationURL     string `json:"next"`
 	PreviousLocationURL string `json:"previous"`
 }
@@ -29,6 +30,7 @@ func main() {
 	config := Config{
 		Cache:           pokeapi.NewCache(interval),
 		NextLocationURL: "https://pokeapi.co/api/v2/location-area/",
+		Pokedex:         make(map[string]pokeapi.ShallowPokemon),
 	}
 
 	cliCommands := map[string]cliCommand{
@@ -57,6 +59,11 @@ func main() {
 			description: "Find pokemon in an area",
 			callback:    commandExplore,
 		},
+		"catch": {
+			name:        "catch",
+			description: "Ability to catch a pokemon",
+			callback:    commandCatch,
+		},
 	}
 
 	scanner := bufio.NewScanner(os.Stdin)
@@ -64,23 +71,31 @@ func main() {
 		fmt.Printf("Pokedex > ")
 		scanner.Scan()
 		command := cleanInput(scanner.Text())[0]
-		var area_name string
+		var name string
 		if command == "explore" {
 			if len(cleanInput(scanner.Text())) < 2 {
 				fmt.Printf("Please add area name to explore.\n")
 				continue
 			} else {
-				area_name = cleanInput(scanner.Text())[1]
+				name = cleanInput(scanner.Text())[1]
 			}
-
+		}
+		if command == "catch" {
+			if len(cleanInput(scanner.Text())) < 2 {
+				fmt.Printf("Please add pokemon name to catch.\n")
+				continue
+			} else {
+				name = cleanInput(scanner.Text())[1]
+			}
 		}
 
 		item, ok := cliCommands[command]
 		if ok {
-			item.callback(&config, &area_name)
+			item.callback(&config, &name)
 		} else {
 			fmt.Printf("Unkown Command\n")
 		}
+
 	}
 }
 

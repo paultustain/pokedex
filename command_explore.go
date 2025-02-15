@@ -7,12 +7,12 @@ import (
 	"github.com/paultustain/pokedex/internal/pokeapi"
 )
 
-func commandExplore(cfg *Config, area_name *string) error {
+func commandExplore(cfg *Config, name *string) error {
 
-	cachedData, found := cfg.Cache.Get(*area_name)
+	cachedData, found := cfg.Cache.Get(*name)
 
 	if found {
-		var cachedPokemon pokeapi.ShallowPokemon
+		var cachedPokemon pokeapi.ShallowEncounters
 
 		err := json.Unmarshal(cachedData, &cachedPokemon)
 		if err != nil {
@@ -24,7 +24,7 @@ func commandExplore(cfg *Config, area_name *string) error {
 		}
 
 	} else {
-		pokemon, err := pokeapi.ListPokemon(*area_name)
+		pokemon, err := pokeapi.ListExplore(*name)
 		if err != nil {
 			return err
 		}
@@ -33,8 +33,7 @@ func commandExplore(cfg *Config, area_name *string) error {
 			return err
 		}
 
-		cfg.Cache.Add(*area_name, data)
-
+		cfg.Cache.Add(*name, data)
 		for _, result := range pokemon.Encounters {
 			fmt.Println(result.Pokemon.Name)
 		}
