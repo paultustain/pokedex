@@ -14,7 +14,7 @@ func commandCatch(cfg *Config, name *string) error {
 		return err
 	}
 
-	chance := 35 / float64(pokemon.BaseExperience)
+	chance := 49 / float64(pokemon.BaseExperience)
 	r := rand.Float64()
 
 	if r < chance {

@@ -64,6 +64,11 @@ func main() {
 			description: "Ability to catch a pokemon",
 			callback:    commandCatch,
 		},
+		"inspect": {
+			name:        "inspect",
+			description: "Details of caught pokemon",
+			callback:    commandInspect,
+		},
 	}
 
 	scanner := bufio.NewScanner(os.Stdin)
@@ -80,9 +85,9 @@ func main() {
 				name = cleanInput(scanner.Text())[1]
 			}
 		}
-		if command == "catch" {
+		if command == "catch" || command == "inspect" {
 			if len(cleanInput(scanner.Text())) < 2 {
-				fmt.Printf("Please add pokemon name to catch.\n")
+				fmt.Printf("Please add pokemon name to search for.\n")
 				continue
 			} else {
 				name = cleanInput(scanner.Text())[1]

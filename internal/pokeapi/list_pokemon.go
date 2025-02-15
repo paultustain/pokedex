@@ -2,7 +2,6 @@ package pokeapi
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 )
@@ -29,6 +28,6 @@ func ListPokemon(name string) (ShallowPokemon, error) {
 		return ShallowPokemon{}, nil
 	}
 
-	fmt.Println(pkmn)
+	// fmt.Println(pkmn)
 	return pkmn, nil
 }
