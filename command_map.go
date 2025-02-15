@@ -52,7 +52,7 @@ func commandMap(cfg *Config, area_name *string) error {
 
 }
 
-func commandMapb(cfg *Config, area_name *string v) error {
+func commandMapb(cfg *Config, area_name *string) error {
 	if cfg.PreviousLocationURL == "" {
 		fmt.Println("you’re on the first page")
 		return nil
