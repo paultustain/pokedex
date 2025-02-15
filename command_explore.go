@@ -8,7 +8,6 @@ import (
 )
 
 func commandExplore(cfg *Config, area_name *string) error {
-	fmt.Println(*area_name)
 
 	cachedData, found := cfg.Cache.Get(*area_name)
 
